@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as S from "./style";
 import HomeIcon from "../../assets/icons/homeIcon.svg";
-// import SelfDiagnosisIcon from "../../assets/icons/SelfDiagnosisIcon.svg";
+import SelfDiagnosisIcon from "../../assets/icons/SelfDiagnosisIcon.svg";
 import AiConsultationIcon from "../../assets/icons/ai.svg";
 import ProfileIcon from "../../assets/icons/profileIcon.svg";
 
@@ -48,7 +48,7 @@ const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
       case "홈":
         return isActive ? HomeIcon : HomeIcon;
       case "정신건강 진단":
-        // return isActive ? SelfDiagnosisIcon : SelfDiagnosisIcon;
+        return isActive ? SelfDiagnosisIcon : SelfDiagnosisIcon;
         break;
       case "AI 상담":
         return isActive ? AiConsultationIcon : AiConsultationIcon;
