@@ -49,7 +49,11 @@ export interface HospitalType {
   userRatingsTotal: number;
 }
 
-const FindHospital = () => {
+interface FindHospitalProps {
+  onHospitalClick?: (id: number) => void;
+}
+
+const FindHospital = ({ onHospitalClick }: FindHospitalProps) => {
   const navigate = useNavigate();
 
   return (
@@ -60,7 +64,11 @@ const FindHospital = () => {
           <S.HospitalInfo
             key={index}
             onClick={() => {
-              navigate(`/hospital/${hospital.id}`);
+              if (onHospitalClick) {
+                onHospitalClick(hospital.id);
+              } else {
+                navigate(`/hospital/${hospital.id}`);
+              }
             }}
           >
             <S.HospitalTitle>

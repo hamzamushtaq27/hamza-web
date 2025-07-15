@@ -1,11 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Main from "../../page/main";
-// import Login from '../../page/Login/loginPage'
-// import Profile from '../../page/Profile/ProfilePage';
-// import SpecDetail from "../Specification/SpecDetail";
-// import CellDetail from "../Specification/SpecDetail/SpecTable/CellDetail";
-// src/Components/Router/Router.tsx
 import Login from "../../page/Login";
 import Signup from "../../page/Signup/Signup";
 import { checkToken } from "../../api/authAPI";
