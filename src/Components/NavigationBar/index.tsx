@@ -9,16 +9,18 @@ type MenuItemType = "홈" | "정신건강 진단" | "AI 상담" | "병원 찾기
 
 interface NavigationProps {
   onMenuSelect?: (menuNumber: number) => void;
+  selectedMenu: MenuItemType;
+  setSelectedMenu: (menu: MenuItemType) => void;
 }
 
-const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
-  const [selectedMenu, setSelectedMenu] = useState<MenuItemType>("홈");
-
+const Navigation: React.FC<NavigationProps> = ({
+  onMenuSelect,
+  selectedMenu,
+  setSelectedMenu,
+}) => {
   const handleMenuClick = (menuName: MenuItemType): void => {
     setSelectedMenu(menuName);
     const menuNumber = getMenuNumber(menuName);
-
-    // 부모 컴포넌트에 선택된 메뉴 번호 전달
     if (onMenuSelect) {
       onMenuSelect(menuNumber);
     }
