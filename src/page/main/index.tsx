@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navigation from "../../Components/Navigation";
+import Navigation from "../../Components/NavigationBar";
 import Home from "../../Components/Home";
 import Profile from "../../Components/Profile";
 import SelfDiagnosis from "../../Components/SelfDiagnosis";
