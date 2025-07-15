@@ -1,4 +1,3 @@
-import { useState } from "react";
 import * as S from "./style";
 import HomeIcon from "../../assets/icons/homeIcon.svg";
 import SelfDiagnosisIcon from "../../assets/icons/SelfDiagnosisIcon.svg";

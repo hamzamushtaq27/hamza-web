@@ -18,16 +18,11 @@ const DUMMY_PROFILE: UserProfile = {
   birthDate: "2000-01-01",
 };
 
-const MAIN_BLUE = "#007bff";
-const MAIN_BLUE_DARK = "#0056b3";
-const GRAY = "#6c757d";
-const LIGHT_GRAY = "#f0f0f0";
-const BORDER_GRAY = "#e0e0e0";
-
 const Profile = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
+  const error = ""
   const [editModal, setEditModal] = useState(false);
   const [pwModal, setPwModal] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
@@ -40,7 +35,8 @@ const Profile = () => {
     newPasswordConfirm: "",
   });
   const [pwMsg, setPwMsg] = useState("");
-  const [updateMsg, setUpdateMsg] = useState("");
+  // const [updateMsg, setUpdateMsg] = useState("");
+  const updateMsg = ""
   const [deactivateMsg, setDeactivateMsg] = useState("");
   const [deactivated, setDeactivated] = useState(false);
 

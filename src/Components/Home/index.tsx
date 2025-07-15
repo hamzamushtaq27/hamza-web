@@ -2,10 +2,9 @@ import * as S from "./style";
 
 interface HomeProps {
   onGoToDiagnosis?: () => void;
-  onGoToFindHospital?: () => void;
 }
 
-const Home = ({ onGoToDiagnosis, onGoToFindHospital }: HomeProps) => {
+const Home = ({ onGoToDiagnosis }: HomeProps) => {
   const dummyData = [
     {
       diagnosisId: 1,
