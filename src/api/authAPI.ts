@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://be0ee3a02f69.ngrok-free.app", // API 주소에 맞게 수정
+  baseURL: 'https://be0ee3a02f69.ngrok-free.app', 
   withCredentials: true,
 });
 

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import * as S from "./style";
-import axios from "axios";
 
 interface ChatMessage {
   text: string;
@@ -11,33 +10,46 @@ const AiConsultation = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const isSendingRef = useRef(false);
+
+  const dummyAnswers = [
+    "안녕하세요! 무엇을 도와드릴까요?",
+    "증상을 좀 더 자세히 말씀해주실 수 있나요?",
+    "해당 증상은 우울증일 수 있습니다. 충분한 휴식을 취하세요.",
+    "필요하다면 가까운 병원을 방문해보세요.",
+    "추가로 궁금한 점이 있으신가요?",
+  ];
+  const answerIndexRef = useRef(0);
 
   const sendMessage = async () => {
-    if (!input.trim()) return;
+    if (isSendingRef.current) return;
+    isSendingRef.current = true;
+    if (!input.trim()) {
+      isSendingRef.current = false;
+      return;
+    }
 
     const userMessage: ChatMessage = { text: input, isUser: true };
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
 
-    try {
-      const response = await axios.post("/api/chat/message", {
-        message: input,
-      });
-      const data = response.data;
-
-      const aiMessage: ChatMessage = { text: data.response, isUser: false };
-      setMessages(prev => [...prev, aiMessage]);
-    } catch {
-      const errorMessage: ChatMessage = {
-        text: "문제가 발생했어요. 다시 시도해주세요.",
-        isUser: false,
-      };
-      setMessages(prev => [...prev, errorMessage]);
+    // 더미 답변 반환
+    const aiText = dummyAnswers[answerIndexRef.current];
+    if (answerIndexRef.current < dummyAnswers.length - 1) {
+      answerIndexRef.current += 1;
     }
+    const aiMessage: ChatMessage = { text: aiText, isUser: false };
+    setTimeout(() => {
+      setMessages((prev) => [...prev, aiMessage]);
+      isSendingRef.current = false;
+    }, 500); // 0.5초 후 답변 시뮬레이션
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") sendMessage();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   useEffect(() => {
