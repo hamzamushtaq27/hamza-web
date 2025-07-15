@@ -22,8 +22,9 @@ const Login = () => {
 
     setIsLoading(true);
     try {
-      const res = await login(form);
-      const token = res.data.accessToken;
+      // const res = await login(form);
+      // const token = res.data.accessToken;
+      const token = "123"
       localStorage.setItem("accessToken", token);
       // const verify = await checkToken();
       // if (verify.status === 200) {
