@@ -4,6 +4,7 @@ import HomeIcon from "../../assets/icons/homeIcon.svg";
 import SelfDiagnosisIcon from "../../assets/icons/SelfDiagnosisIcon.svg";
 import AiConsultationIcon from "../../assets/icons/ai.svg";
 import ProfileIcon from "../../assets/icons/profileIcon.svg";
+import HospitalIcon from "../../assets/icons/hospitalIcon.svg";
 
 type MenuItemType = "홈" | "정신건강 진단" | "AI 상담" | "병원 찾기" | "마이";
 
@@ -49,9 +50,10 @@ const Navigation: React.FC<NavigationProps> = ({
         return isActive ? HomeIcon : HomeIcon;
       case "정신건강 진단":
         return isActive ? SelfDiagnosisIcon : SelfDiagnosisIcon;
-        break;
       case "AI 상담":
         return isActive ? AiConsultationIcon : AiConsultationIcon;
+      case "병원 찾기":
+        return isActive ? HospitalIcon : HospitalIcon;
       case "마이":
         return isActive ? ProfileIcon : ProfileIcon;
       default:
@@ -105,6 +107,9 @@ const Navigation: React.FC<NavigationProps> = ({
         onClick={() => handleMenuClick("병원 찾기")}
       >
         {selectedMenu === "병원 찾기" && <S.ActiveBar />}
+        <S.IconWrapper $isActive={selectedMenu === "병원 찾기"}>
+          <img src={getMenuIcon("병원 찾기", selectedMenu === "병원 찾기")} alt="병원 찾기" />
+        </S.IconWrapper>
         <span>병원 찾기</span>
       </S.MenuItem>
 
