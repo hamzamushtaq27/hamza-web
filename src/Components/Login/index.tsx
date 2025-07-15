@@ -25,7 +25,7 @@ const Login = () => {
       const res = await login(form);
       const token = res.data.accessToken;
       localStorage.setItem("accessToken", token);
-      const verify = await checkToken(); // <-- 토큰이 진짜 유효한지 확인
+      const verify = await checkToken();
       if (verify.status === 200) {
         window.location.replace("/");
       } else {
