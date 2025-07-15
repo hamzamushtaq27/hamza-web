@@ -1,11 +1,15 @@
 import { useState } from "react";
 import * as S from "./style";
+import HomeIcon from "../../assets/icons/homeIcon.svg";
+// import SelfDiagnosisIcon from "../../assets/icons/SelfDiagnosisIcon.svg";
+import AiConsultationIcon from "../../assets/icons/ai.svg";
+import ProfileIcon from "../../assets/icons/profileIcon.svg";
 
 type MenuItemType =
   | "홈"
   | "정신건강 진단"
   | "AI 상담"
-  | "마이페이지";
+  | "마이";
 
 interface NavigationProps {
   onMenuSelect?: (menuNumber: number) => void;
@@ -33,31 +37,28 @@ const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
         return 2;
       case "AI 상담":
         return 3;
-      case "마이페이지":
+      case "마이":
         return 4;
       default:
         return 1;
     }
   };
 
-  // const getMenuIcon = (menuName: MenuItemType, isActive: boolean) => {
-  //   switch (menuName) {
-  //     case "요약":
-  //       return isActive ? playIcon : globeIcon;
-  //     case "기능 명세서":
-  //       return isActive ? bookIcon_p : bookIcon;
-  //     case "캘린더":
-  //       return isActive ? calendarIcon_p : calendarIcon;
-  //     case "칸반 보드":
-  //       return isActive ? boardIcon_p : boardIcon;
-  //     case "이슈":
-  //       return isActive ? issueIcon_p : issueIcon;
-  //     case "목록":
-  //       return isActive ? listIcon_p : listIcon;
-  //     default:
-  //       return globeIcon;
-  //   }
-  // };
+  const getMenuIcon = (menuName: MenuItemType, isActive: boolean) => {
+    switch (menuName) {
+      case "홈":
+        return isActive ? HomeIcon : HomeIcon;
+      case "정신건강 진단":
+        // return isActive ? SelfDiagnosisIcon : SelfDiagnosisIcon;
+        break;
+      case "AI 상담":
+        return isActive ? AiConsultationIcon : AiConsultationIcon;
+      case "마이":
+        return isActive ? ProfileIcon : ProfileIcon;
+      default:
+        return HomeIcon;
+    }
+  };
 
   return (
     <S.NavigationContainer>
@@ -67,7 +68,7 @@ const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
       >
         {selectedMenu === "홈" && <S.ActiveBar />}
         <S.IconWrapper>
-          {/* <img src={getMenuIcon("목록", selectedMenu === "목록")} alt="목록" /> */}
+          <img src={getMenuIcon("홈", selectedMenu === "홈")} alt="홈" />
         </S.IconWrapper>
         <span>홈</span>
       </S.MenuItem>
@@ -78,7 +79,7 @@ const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
       >
         {selectedMenu === "정신건강 진단" && <S.ActiveBar />}
         <S.IconWrapper>
-          {/* <img src={getMenuIcon("목록", selectedMenu === "목록")} alt="목록" /> */}
+          <img src={getMenuIcon("정신건강 진단", selectedMenu === "정신건강 진단")} alt="정신건강 진단" />
         </S.IconWrapper>
         <span>정신건강 진단</span>
       </S.MenuItem>
@@ -89,19 +90,19 @@ const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
       >
         {selectedMenu === "AI 상담" && <S.ActiveBar />}
         <S.IconWrapper>
-          {/* <img src={getMenuIcon("목록", selectedMenu === "목록")} alt="목록" /> */}
+          <img src={getMenuIcon("AI 상담", selectedMenu === "AI 상담")} alt="AI 상담" />
         </S.IconWrapper>
         <span>AI 상담</span>
       </S.MenuItem>
       <S.MenuItem
-        className={selectedMenu === "마이페이지" ? "active" : ""}
-        onClick={() => handleMenuClick("마이페이지")}
+        className={selectedMenu === "마이" ? "active" : ""}
+        onClick={() => handleMenuClick("마이")}
       >
-        {selectedMenu === "마이페이지" && <S.ActiveBar />}
+        {selectedMenu === "마이" && <S.ActiveBar />}
         <S.IconWrapper>
-          {/* <img src={getMenuIcon("목록", selectedMenu === "목록")} alt="목록" /> */}
+          <img src={getMenuIcon("마이", selectedMenu === "마이")} alt="마이" />
         </S.IconWrapper>
-        <span>마이페이지</span>
+        <span>마이</span>
       </S.MenuItem>
     </S.NavigationContainer>
   );
