@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { login } from "../../api/authAPI";
-import { checkToken } from "../../api/authAPI";
 import * as S from "./style";
 
 const Login = () => {
@@ -22,8 +20,8 @@ const Login = () => {
 
     setIsLoading(true);
     try {
-      const res = await login(form);
-      const token = res.data.accessToken;
+      // const res = await login(form);
+      const token = "똥";
       localStorage.setItem("accessToken", token);
       // const verify = await checkToken();
       // if (verify.status === 200) {

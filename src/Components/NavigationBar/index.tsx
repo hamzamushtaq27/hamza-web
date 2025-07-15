@@ -5,7 +5,7 @@ import SelfDiagnosisIcon from "../../assets/icons/SelfDiagnosisIcon.svg";
 import AiConsultationIcon from "../../assets/icons/ai.svg";
 import ProfileIcon from "../../assets/icons/profileIcon.svg";
 
-type MenuItemType = "홈" | "정신건강 진단" | "AI 상담" | "마이";
+type MenuItemType = "홈" | "정신건강 진단" | "AI 상담" | "병원 찾기" | "마이";
 
 interface NavigationProps {
   onMenuSelect?: (menuNumber: number) => void;
@@ -34,8 +34,10 @@ const Navigation: React.FC<NavigationProps> = ({
         return 2;
       case "AI 상담":
         return 3;
-      case "마이":
+      case "병원 찾기":
         return 4;
+      case "마이":
+        return 5;
       default:
         return 1;
     }
@@ -97,6 +99,15 @@ const Navigation: React.FC<NavigationProps> = ({
         </S.IconWrapper>
         <span>AI 상담</span>
       </S.MenuItem>
+
+      <S.MenuItem
+        $isActive={selectedMenu === "병원 찾기"}
+        onClick={() => handleMenuClick("병원 찾기")}
+      >
+        {selectedMenu === "병원 찾기" && <S.ActiveBar />}
+        <span>병원 찾기</span>
+      </S.MenuItem>
+
       <S.MenuItem
         $isActive={selectedMenu === "마이"}
         onClick={() => handleMenuClick("마이")}

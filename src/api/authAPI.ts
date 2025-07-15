@@ -37,8 +37,8 @@ export const login = (data: { email: string; password: string }) => {
 };
 
 export const checkToken = () =>
-  api.get("/api/auth/verify-token", {
+  api.get("/api/auth/me", {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
     },
   });
