@@ -62,10 +62,6 @@ const Main = () => {
               setSelectedMenuNumber(2);
               setSelectedMenu("정신건강 진단");
             }}
-            onGoToFindHospital={() => {
-              setSelectedMenuNumber(4);
-              setSelectedMenu("병원 찾기");
-            }}
           />
         );
       case 2:
