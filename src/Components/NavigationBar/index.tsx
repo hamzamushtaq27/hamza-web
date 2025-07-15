@@ -5,24 +5,22 @@ import SelfDiagnosisIcon from "../../assets/icons/SelfDiagnosisIcon.svg";
 import AiConsultationIcon from "../../assets/icons/ai.svg";
 import ProfileIcon from "../../assets/icons/profileIcon.svg";
 
-type MenuItemType =
-  | "홈"
-  | "정신건강 진단"
-  | "AI 상담"
-  | "마이";
+type MenuItemType = "홈" | "정신건강 진단" | "AI 상담" | "마이";
 
 interface NavigationProps {
   onMenuSelect?: (menuNumber: number) => void;
+  selectedMenu: MenuItemType;
+  setSelectedMenu: (menu: MenuItemType) => void;
 }
 
-const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
-  const [selectedMenu, setSelectedMenu] = useState<MenuItemType>("홈");
-
+const Navigation: React.FC<NavigationProps> = ({
+  onMenuSelect,
+  selectedMenu,
+  setSelectedMenu,
+}) => {
   const handleMenuClick = (menuName: MenuItemType): void => {
     setSelectedMenu(menuName);
     const menuNumber = getMenuNumber(menuName);
-
-    // 부모 컴포넌트에 선택된 메뉴 번호 전달
     if (onMenuSelect) {
       onMenuSelect(menuNumber);
     }
@@ -78,7 +76,10 @@ const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
       >
         {selectedMenu === "정신건강 진단" && <S.ActiveBar />}
         <S.IconWrapper $isActive={selectedMenu === "정신건강 진단"}>
-          <img src={getMenuIcon("정신건강 진단", selectedMenu === "정신건강 진단")} alt="정신건강 진단" />
+          <img
+            src={getMenuIcon("정신건강 진단", selectedMenu === "정신건강 진단")}
+            alt="정신건강 진단"
+          />
         </S.IconWrapper>
         <span>정신건강 진단</span>
       </S.MenuItem>
@@ -89,7 +90,10 @@ const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
       >
         {selectedMenu === "AI 상담" && <S.ActiveBar />}
         <S.IconWrapper $isActive={selectedMenu === "AI 상담"}>
-          <img src={getMenuIcon("AI 상담", selectedMenu === "AI 상담")} alt="AI 상담" />
+          <img
+            src={getMenuIcon("AI 상담", selectedMenu === "AI 상담")}
+            alt="AI 상담"
+          />
         </S.IconWrapper>
         <span>AI 상담</span>
       </S.MenuItem>
