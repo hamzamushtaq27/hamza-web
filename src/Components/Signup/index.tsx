@@ -132,7 +132,7 @@ const Signup = () => {
   return (
     <S.Container>
       <S.SignupBox>
-        <S.Title>회원가입</S.Title>
+        <S.Title>함자 회원가입</S.Title>
         
         <S.Form>
           <S.InputGroup>
