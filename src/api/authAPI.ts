@@ -1,5 +1,5 @@
 // src/api/authAPI.ts
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
   baseURL: 'https://be0ee3a02f69.ngrok-free.app', 
@@ -21,10 +21,13 @@ export const signup = (data: {
 }) => api.post(`/api/auth/signup`, data);
 
 export const login = (data: { email: string; password: string }) => {
-  const dummyUser = { email: "a@gmail.com", password: "1234" };
+  const dummyUser = { email: "test@gmail.com", password: "1234" };
   return new Promise<{ data: { accessToken: string } }>((resolve, reject) => {
     setTimeout(() => {
-      if (data.email === dummyUser.email && data.password === dummyUser.password) {
+      if (
+        data.email === dummyUser.email &&
+        data.password === dummyUser.password
+      ) {
         resolve({ data: { accessToken: "dummy-access-token" } });
       } else {
         reject(new Error("이메일 또는 비밀번호가 잘못되었습니다."));
