@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { login } from "../../api/authAPI";
-import { checkToken } from "../../api/authAPI";
 import * as S from "./style";
 
 const Login = () => {
@@ -22,15 +20,10 @@ const Login = () => {
 
     setIsLoading(true);
     try {
-      const res = await login(form);
-      const token = res.data.accessToken;
+      // const res = await login(form);
+      const token = "똥";
       localStorage.setItem("accessToken", token);
-      const verify = await checkToken();
-      if (verify.status === 200) {
-        window.location.replace("/");
-      } else {
-        setError("토큰이 유효하지 않습니다.");
-      }
+      window.location.replace("/");
     } catch {
       setError("이메일 또는 비밀번호가 잘못되었습니다.");
     } finally {

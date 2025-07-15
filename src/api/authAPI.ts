@@ -1,8 +1,8 @@
 // src/api/authAPI.ts
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000', // API 주소에 맞게 수정
+  baseURL: "https://be0ee3a02f69.ngrok-free.app", // API 주소에 맞게 수정
   withCredentials: true,
 });
 
@@ -24,8 +24,8 @@ export const login = (data: { email: string; password: string }) =>
   api.post(`/api/auth/signin`, data);
 
 export const checkToken = () =>
-  api.get("/api/auth/verify-token", {
+  api.get("/api/auth/me", {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
     },
   });

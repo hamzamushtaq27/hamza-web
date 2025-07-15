@@ -4,7 +4,8 @@ import Home from "../../Components/Home";
 import Profile from "../../Components/Profile";
 import SelfDiagnosis from "../../Components/SelfDiagnosis";
 import AiConsultation from "../../Components/aiConsultation";
-import * as S from './style';
+import * as S from "./style";
+import FindHospital from "../../Components/FindHostpital";
 
 const Main = () => {
   const [selectedMenuNumber, setSelectedMenuNumber] = useState<number>(1);
@@ -18,6 +19,8 @@ const Main = () => {
       case 3:
         return <AiConsultation />;
       case 4:
+        return <FindHospital />;
+      case 5:
         return <Profile />;
       default:
         return <Home />;

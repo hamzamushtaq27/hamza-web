@@ -9,6 +9,7 @@ import Main from "../../page/main";
 import Login from "../../page/Login";
 import Signup from "../../page/Signup/Signup";
 import { checkToken } from "../../api/authAPI";
+import HospitalDetail from "../HospitalDetail";
 
 const Router = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -57,6 +58,10 @@ const Router = () => {
           element={
             isAuthenticated ? <Main /> : <Navigate to="/login" replace />
           }
+        />
+        <Route
+          path="/hospital/:id"
+          element={<HospitalDetail />}
         />
       </Routes>
     </BrowserRouter>
