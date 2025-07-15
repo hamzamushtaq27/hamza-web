@@ -4,6 +4,10 @@ import axios from "axios";
 const api = axios.create({
   baseURL: 'https://be0ee3a02f69.ngrok-free.app', 
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    'ngrok-skip-browser-warning': 'true'
+  }
 });
 
 export const checkEmail = (email: string) =>
@@ -20,25 +24,40 @@ export const signup = (data: {
   phoneNumber: string;
 }) => api.post(`/api/auth/signup`, data);
 
-export const login = (data: { email: string; password: string }) => {
-  const dummyUser = { email: "test@gmail.com", password: "1234" };
-  return new Promise<{ data: { accessToken: string } }>((resolve, reject) => {
-    setTimeout(() => {
-      if (
-        data.email === dummyUser.email &&
-        data.password === dummyUser.password
-      ) {
-        resolve({ data: { accessToken: "dummy-access-token" } });
-      } else {
-        reject(new Error("이메일 또는 비밀번호가 잘못되었습니다."));
-      }
-    }, 500); // 0.5초 후 응답 시뮬레이션
-  });
-};
+export const login = (data: { email: string; password: string }) => 
+  api.post(`/api/auth/signin`, data);
 
 export const checkToken = () =>
   api.get("/api/auth/me", {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
+
+export const logout = () =>
+  api.post("/api/auth/logout", {}, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
+
+export const refreshToken = () =>
+  api.post("/api/auth/refresh", {}, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
+
+export const updateProfile = (data: { nickname?: string; phoneNumber?: string }) =>
+  api.put("/api/auth/profile", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
+
+export const changePassword = (data: { currentPassword: string; newPassword: string }) =>
+  api.put("/api/auth/change-password", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   });

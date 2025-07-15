@@ -1,63 +1,36 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Main from "../../page/main";
 import Login from "../../page/Login";
 import Signup from "../../page/Signup/Signup";
-import { checkToken } from "../../api/authAPI";
-import HospitalDetail from "../HospitalDetail";
+import HospitalDetail from "../HospitalDetail/index";
+import ProtectedRoute from "../ProtectedRoute"; // 경로 확인 필요
 
 const Router = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-
-  // 새로고침 시 토큰 유효성 검사
-  useEffect(() => {
-    const verify = async () => {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        setIsAuthenticated(false);
-        return;
-      }
-
-      try {
-        await checkToken(); // 200 OK → 토큰 유효
-        setIsAuthenticated(true);
-      } catch {
-        localStorage.removeItem("accessToken"); // 토큰 무효 시 삭제
-        setIsAuthenticated(false);
-      }
-      setIsAuthenticated(true); // 초기값 설정
-    };
-
-    verify();
-  }, []);
-
-  if (isAuthenticated === null) return <div>로딩 중...</div>; // 검사 중
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? <Navigate to="/" replace /> : <Login />
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            isAuthenticated ? <Navigate to="/" replace /> : <Signup />
-          }
-        />
+        {/* 보호된 라우트 (로그인 필요) */}
         <Route
           path="/"
           element={
-            isAuthenticated ? <Main /> : <Navigate to="/login" replace />
+            <ProtectedRoute>
+              <Main />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/hospital/:id"
-          element={<HospitalDetail />}
+          element={
+            <ProtectedRoute>
+              <HospitalDetail hospitalId={0} />
+            </ProtectedRoute>
+          }
         />
+
+        {/* 공개 라우트 */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

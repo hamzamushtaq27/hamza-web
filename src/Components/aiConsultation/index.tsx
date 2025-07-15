@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import * as S from "./style";
+import { chatbot } from "../../api/chatbotAPI"; // 실제 경로에 맞게 수정하세요
 
 interface ChatMessage {
   text: string;
@@ -12,37 +13,36 @@ const AiConsultation = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const isSendingRef = useRef(false);
 
-  const dummyAnswers = [
-    "안녕하세요! 무엇을 도와드릴까요?",
-    "증상을 좀 더 자세히 말씀해주실 수 있나요?",
-    "해당 증상은 우울증일 수 있습니다. 충분한 휴식을 취하세요.",
-    "필요하다면 가까운 병원을 방문해보세요.",
-    "추가로 궁금한 점이 있으신가요?",
-  ];
-  const answerIndexRef = useRef(0);
+  const sessionId = 123; // 필요시 prop이나 context로 관리 가능
 
   const sendMessage = async () => {
-    if (isSendingRef.current) return;
+    if (isSendingRef.current || !input.trim()) return;
     isSendingRef.current = true;
-    if (!input.trim()) {
-      isSendingRef.current = false;
-      return;
-    }
 
     const userMessage: ChatMessage = { text: input, isUser: true };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
 
-    // 더미 답변 반환
-    const aiText = dummyAnswers[answerIndexRef.current];
-    if (answerIndexRef.current < dummyAnswers.length - 1) {
-      answerIndexRef.current += 1;
-    }
-    const aiMessage: ChatMessage = { text: aiText, isUser: false };
-    setTimeout(() => {
+    try {
+      const response = await chatbot({
+        message: input,
+        sessionId,
+        isEmergency: false,
+      });
+
+      const aiText = response.data.response ?? "죄송해요, 답변을 불러올 수 없어요.";
+      const aiMessage: ChatMessage = { text: aiText, isUser: false };
       setMessages((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error("메시지 전송 실패:", error);
+      const errorMessage: ChatMessage = {
+        text: "서버 오류가 발생했어요. 잠시 후 다시 시도해주세요.",
+        isUser: false,
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
       isSendingRef.current = false;
-    }, 500); // 0.5초 후 답변 시뮬레이션
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

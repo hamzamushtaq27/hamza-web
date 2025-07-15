@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { login } from "../../api/authAPI";
 import * as S from "./style";
 
 const Login = () => {
@@ -20,17 +21,19 @@ const Login = () => {
 
     setIsLoading(true);
     try {
-      // const res = await login(form);
-      const token = "똥";
+      const res = await login(form);
+      const token = res.data.data.accessToken;
       localStorage.setItem("accessToken", token);
-      // const verify = await checkToken();
-      // if (verify.status === 200) {
-        window.location.replace("/");
-      // } else {
-      //   setError("토큰이 유효하지 않습니다.");
-      // }
-    } catch {
-      setError("이메일 또는 비밀번호가 잘못되었습니다.");
+      window.location.replace("/");
+    } catch (error: any) {
+      console.error("Login error:", error);
+      if (error.response?.status === 401) {
+        setError("이메일 또는 비밀번호가 올바르지 않습니다.");
+      } else if (error.response?.data?.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("로그인 중 오류가 발생했습니다.");
+      }
     } finally {
       setIsLoading(false);
     }
