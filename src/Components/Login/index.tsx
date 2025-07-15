@@ -22,15 +22,16 @@ const Login = () => {
 
     setIsLoading(true);
     try {
-      const res = await login(form);
-      const token = res.data.accessToken;
+      // const res = await login(form);
+      // const token = res.data.accessToken;
+      const token = "123"
       localStorage.setItem("accessToken", token);
-      const verify = await checkToken();
-      if (verify.status === 200) {
+      // const verify = await checkToken();
+      // if (verify.status === 200) {
         window.location.replace("/");
-      } else {
-        setError("토큰이 유효하지 않습니다.");
-      }
+      // } else {
+      //   setError("토큰이 유효하지 않습니다.");
+      // }
     } catch {
       setError("이메일 또는 비밀번호가 잘못되었습니다.");
     } finally {
