@@ -4,12 +4,14 @@ import Main from '../../page/main';
 // import Profile from '../../page/Profile/ProfilePage';
 // import SpecDetail from "../Specification/SpecDetail";
 // import CellDetail from "../Specification/SpecDetail/SpecTable/CellDetail";
+import Login from '../../page/Login';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
