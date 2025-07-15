@@ -13,7 +13,6 @@ type MenuItemType =
 
 interface NavigationProps {
   onMenuSelect?: (menuNumber: number) => void;
-  mode?: number; // mode 속성 추가
 }
 
 const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
@@ -63,43 +62,43 @@ const Navigation: React.FC<NavigationProps> = ({ onMenuSelect }) => {
   return (
     <S.NavigationContainer>
       <S.MenuItem
-        className={selectedMenu === "홈" ? "active" : ""}
+        $isActive={selectedMenu === "홈"}
         onClick={() => handleMenuClick("홈")}
       >
         {selectedMenu === "홈" && <S.ActiveBar />}
-        <S.IconWrapper>
+        <S.IconWrapper $isActive={selectedMenu === "홈"}>
           <img src={getMenuIcon("홈", selectedMenu === "홈")} alt="홈" />
         </S.IconWrapper>
         <span>홈</span>
       </S.MenuItem>
 
       <S.MenuItem
-        className={selectedMenu === "정신건강 진단" ? "active" : ""}
+        $isActive={selectedMenu === "정신건강 진단"}
         onClick={() => handleMenuClick("정신건강 진단")}
       >
         {selectedMenu === "정신건강 진단" && <S.ActiveBar />}
-        <S.IconWrapper>
+        <S.IconWrapper $isActive={selectedMenu === "정신건강 진단"}>
           <img src={getMenuIcon("정신건강 진단", selectedMenu === "정신건강 진단")} alt="정신건강 진단" />
         </S.IconWrapper>
         <span>정신건강 진단</span>
       </S.MenuItem>
 
       <S.MenuItem
-        className={selectedMenu === "AI 상담" ? "active" : ""}
+        $isActive={selectedMenu === "AI 상담"}
         onClick={() => handleMenuClick("AI 상담")}
       >
         {selectedMenu === "AI 상담" && <S.ActiveBar />}
-        <S.IconWrapper>
+        <S.IconWrapper $isActive={selectedMenu === "AI 상담"}>
           <img src={getMenuIcon("AI 상담", selectedMenu === "AI 상담")} alt="AI 상담" />
         </S.IconWrapper>
         <span>AI 상담</span>
       </S.MenuItem>
       <S.MenuItem
-        className={selectedMenu === "마이" ? "active" : ""}
+        $isActive={selectedMenu === "마이"}
         onClick={() => handleMenuClick("마이")}
       >
         {selectedMenu === "마이" && <S.ActiveBar />}
-        <S.IconWrapper>
+        <S.IconWrapper $isActive={selectedMenu === "마이"}>
           <img src={getMenuIcon("마이", selectedMenu === "마이")} alt="마이" />
         </S.IconWrapper>
         <span>마이</span>
