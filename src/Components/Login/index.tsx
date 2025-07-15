@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <S.Container>
       <S.LoginBox>
-        <S.Title>로그인</S.Title>
+        <S.Title>함자 로그인</S.Title>
 
         <S.Form>
           <S.InputGroup>
