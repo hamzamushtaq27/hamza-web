@@ -58,26 +58,46 @@ const AiConsultation = () => {
 
   return (
     <S.Container>
-      <S.ChatBox>
+      <S.Header>
+        <S.HeaderTitle>AI 상담</S.HeaderTitle>
+        <S.HeaderSubtitle>언제든지 편하게 대화해보세요</S.HeaderSubtitle>
+      </S.Header>
+      
+      <S.ChatContent>
         <S.MessageList>
+          {messages.length === 0 && (
+            <S.WelcomeMessage>
+              안녕하세요! 무엇을 도와드릴까요?
+            </S.WelcomeMessage>
+          )}
           {messages.map((msg, idx) => (
-            <S.Message key={idx} isUser={msg.isUser}>
-              {msg.text}
-            </S.Message>
+            <S.MessageWrapper key={idx} isUser={msg.isUser}>
+              <S.Message isUser={msg.isUser}>
+                {msg.text}
+              </S.Message>
+            </S.MessageWrapper>
           ))}
           <div ref={messagesEndRef} />
         </S.MessageList>
+        
         <S.InputWrapper>
-          <S.Input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="메시지를 입력하세요..."
-          />
-          <S.SendButton onClick={sendMessage}>전송</S.SendButton>
+          <S.InputContainer>
+            <S.Input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="메시지를 입력하세요..."
+            />
+            <S.SendButton 
+              onClick={sendMessage}
+              disabled={!input.trim() || isSendingRef.current}
+            >
+              전송
+            </S.SendButton>
+          </S.InputContainer>
         </S.InputWrapper>
-      </S.ChatBox>
+      </S.ChatContent>
     </S.Container>
   );
 };

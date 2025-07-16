@@ -49,42 +49,54 @@ const Home = ({ onGoToDiagnosis }: HomeProps) => {
 
   return (
     <S.HomeContainer>
+      <S.Header>
+        <S.HeaderTitle>진단 기록</S.HeaderTitle>
+        <S.HeaderSubtitle>정신건강 진단 결과를 확인하세요</S.HeaderSubtitle>
+      </S.Header>
+      
       <S.CardList>
         {dummyData.map((item) => (
-          <S.Card key={item.diagnosisId} $color={item.severityColor}>
-            <div
-              style={{
-                fontWeight: "bold",
-                fontSize: "18px",
-                marginBottom: "8px",
-              }}
-            >
-              {item.severityDescription}
-            </div>
-            <div>
-              진단일: {new Date(item.diagnosisDate).toLocaleDateString()}
-            </div>
-            <div>점수: {item.totalScore}점</div>
-            <div>권고: {item.recommendation}</div>
-            <div>비고: {item.notes}</div>
-            <div
-              style={{
-                marginTop: "8px",
-                color: item.severityColor,
-                fontWeight: "bold",
-              }}
-            >
-              {item.severity}
-            </div>
-            <div style={{ fontSize: "12px", color: "#888" }}>
-              {item.scoreComparison}
-            </div>
+          <S.Card key={item.diagnosisId}>
+            <S.CardHeader>
+              <S.SeverityBadge $color={item.severityColor}>
+                {item.severity}
+              </S.SeverityBadge>
+              <S.DiagnosisDate>
+                {new Date(item.diagnosisDate).toLocaleDateString()}
+              </S.DiagnosisDate>
+            </S.CardHeader>
+            
+            <S.CardBody>
+              <S.SeverityDescription>
+                {item.severityDescription}
+              </S.SeverityDescription>
+              
+              <S.ScoreSection>
+                <S.ScoreLabel>진단 점수</S.ScoreLabel>
+                <S.ScoreValue>{item.totalScore}점</S.ScoreValue>
+              </S.ScoreSection>
+              
+              <S.RecommendationSection>
+                <S.RecommendationLabel>권고사항</S.RecommendationLabel>
+                <S.RecommendationText>{item.recommendation}</S.RecommendationText>
+              </S.RecommendationSection>
+              
+              <S.NotesSection>
+                <S.NotesLabel>메모</S.NotesLabel>
+                <S.NotesText>{item.notes}</S.NotesText>
+              </S.NotesSection>
+              
+              <S.ComparisonText>
+                {item.scoreComparison}
+              </S.ComparisonText>
+            </S.CardBody>
           </S.Card>
         ))}
       </S.CardList>
+      
       <S.DiagnosisButtonWrapper>
         <S.DiagnosisButton onClick={onGoToDiagnosis}>
-          정신 건강 진단하러가기
+          새로운 진단 시작하기
         </S.DiagnosisButton>
       </S.DiagnosisButtonWrapper>
     </S.HomeContainer>

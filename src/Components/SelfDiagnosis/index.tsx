@@ -71,27 +71,29 @@ const SelfDiagnosis = ({ onGoToFindHospital }: SelfDiagnosisProps) => {
       </S.Header>
 
       <S.TestButton onClick={() => setShowTestPage(true)}>
-        검사하러 가기
+        검사 시작하기
       </S.TestButton>
 
       <S.HistorySection>
-        <S.HistoryTitle>이전 검사 결과</S.HistoryTitle>
+        <S.HistoryTitle>검사 기록</S.HistoryTitle>
         {results.length > 0 ? (
           <S.ResultsList>
             {results.map((result) => (
               <S.ResultItem key={result.id}>
-                <S.ResultDate>{result.date}</S.ResultDate>
+                <S.ResultHeader>
+                  <S.ResultDate>{result.date}</S.ResultDate>
+                  <S.ResultLevel color={getLevelColor(result.level)}>
+                    {result.level}
+                  </S.ResultLevel>
+                </S.ResultHeader>
                 <S.ResultScore>
-                  점수: {result.score}/{result.totalQuestions * 3}
+                  {result.score}/{result.totalQuestions * 3}점
                 </S.ResultScore>
-                <S.ResultLevel color={getLevelColor(result.level)}>
-                  {result.level}
-                </S.ResultLevel>
               </S.ResultItem>
             ))}
           </S.ResultsList>
         ) : (
-          <S.NoResults>아직 검사 결과가 없습니다.</S.NoResults>
+          <S.NoResults>검사 기록이 없습니다</S.NoResults>
         )}
       </S.HistorySection>
     </S.Container>
@@ -196,11 +198,17 @@ const SelfDiagnosisTest = ({
       <S.Container>
         <S.ResultContainer>
           <S.ResultTitle>검사 결과</S.ResultTitle>
-          <S.ScoreDisplay>
-            <S.Score>{totalScore}</S.Score>
-            <S.MaxScore>/ {questions.length * 3}</S.MaxScore>
-          </S.ScoreDisplay>
-          <S.LevelDisplay color={getLevelColor(level)}>{level}</S.LevelDisplay>
+          <S.ScoreSection>
+            <S.ScoreLabel>총점</S.ScoreLabel>
+            <S.ScoreDisplay>
+              <S.Score>{totalScore}</S.Score>
+              <S.MaxScore>/ {questions.length * 3}</S.MaxScore>
+            </S.ScoreDisplay>
+          </S.ScoreSection>
+          <S.LevelSection>
+            <S.LevelLabel>진단 결과</S.LevelLabel>
+            <S.LevelDisplay color={getLevelColor(level)}>{level}</S.LevelDisplay>
+          </S.LevelSection>
           <S.ResultDescription>
             {level === "정상" && "현재 상태가 양호합니다."}
             {level === "경미함" && "가벼운 우울 증상이 있을 수 있습니다."}
@@ -213,16 +221,14 @@ const SelfDiagnosisTest = ({
               다시 검사
             </S.SecondaryButton>
             <S.PrimaryButton onClick={handleBackToList}>
-              목록으로
+              완료
             </S.PrimaryButton>
           </S.ButtonGroup>
-          <div
-            style={{ display: "flex", justifyContent: "center", marginTop: 24 }}
-          >
-            <S.PrimaryButton onClick={onGoToFindHospital}>
-              도움이 필요하나요?
-            </S.PrimaryButton>
-          </div>
+          <S.HelpButtonWrapper>
+            <S.HelpButton onClick={onGoToFindHospital}>
+              병원 찾기
+            </S.HelpButton>
+          </S.HelpButtonWrapper>
         </S.ResultContainer>
       </S.Container>
     );
